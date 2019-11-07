@@ -50,30 +50,39 @@
   };
 </script>
 
-  <meta name="description" content="专注于Java, Database">
-<meta property="og:type" content="website">
-<meta property="og:title" content="随便写写">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control介绍MVCC是目前最流行的并发控制协议，这篇论文从4个方面分析了MVCC设计取舍，包括如下:   concurrency control protocol  version storage  garbage collection index managemen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="evaluation-mvcc">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;index.html">
 <meta property="og:site_name" content="随便写写">
-<meta property="og:description" content="专注于Java, Database">
+<meta property="og:description" content="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control介绍MVCC是目前最流行的并发控制协议，这篇论文从4个方面分析了MVCC设计取舍，包括如下:   concurrency control protocol  version storage  garbage collection index managemen">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029103341751.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029103554828.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029105631639.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029111315549.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029112911934.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191031113148916.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191031114538968.png">
+<meta property="og:updated_time" content="2019-10-31T06:33:01.867Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;31&#x2F;evaluation-mvcc&#x2F;image-20191029103341751.png">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/10/31/evaluation-mvcc/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>随便写写</title>
+  <title>evaluation-mvcc | 随便写写</title>
   
 
 
@@ -168,10 +177,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/evaluation-mvcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -185,8 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/31/evaluation-mvcc/" class="post-title-link" itemprop="url">evaluation-mvcc</a>
+          evaluation-mvcc
         </h1>
 
         <div class="post-meta">
@@ -211,7 +219,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control"><a href="#An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control" class="headerlink" title="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control"></a>An Empirical Evaluation of In-Memory Multi-Version Concurrency Control</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><em>MVCC</em>是目前最流行的并发控制协议，这篇论文从4个方面分析了<em>MVCC</em>设计取舍，包括如下: </p>
+        <h2 id="An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control"><a href="#An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control" class="headerlink" title="An Empirical Evaluation of In-Memory Multi-Version Concurrency Control"></a>An Empirical Evaluation of In-Memory Multi-Version Concurrency Control</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><em>MVCC</em>是目前最流行的并发控制协议，这篇论文从4个方面分析了<em>MVCC</em>设计取舍，包括如下: </p>
 <ul>
 <li><em>concurrency control protocol</em> </li>
 <li><em>version storage</em> </li>
@@ -255,24 +263,24 @@
 <img src="/2019/10/31/evaluation-mvcc/image-20191031114538968.png" alt="image-20191031114538968" style="zoom:67%;">
 
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
       </footer>
+    
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -301,6 +309,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#An-Empirical-Evaluation-of-In-Memory-Multi-Version-Concurrency-Control"><span class="nav-number">1.</span> <span class="nav-text">An Empirical Evaluation of In-Memory Multi-Version Concurrency Control</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MVCC概述"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">MVCC概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DBMS元数据"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">DBMS元数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concurrency-control-protocol"><span class="nav-number">1.3.</span> <span class="nav-text">concurrency control protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Timestamp-orderding-MVTO"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">Timestamp orderding(MVTO)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Optimistic-concurency-control-MVOCC"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">Optimistic concurency control(MVOCC)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Two-phase-Locking-MV2PL"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">Two-phase Locking(MV2PL)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Serialization-Certifier"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">Serialization Certifier</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Version-storage"><span class="nav-number">1.4.</span> <span class="nav-text">Version storage</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Append-only-storage"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">Append-only storage</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Oldest-to-Newest"><span class="nav-number">1.4.0.1.1.</span> <span class="nav-text">Oldest-to-Newest</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Newest-to-Oldest"><span class="nav-number">1.4.0.1.2.</span> <span class="nav-text">Newest-to-Oldest</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
